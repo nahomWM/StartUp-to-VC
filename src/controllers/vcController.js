@@ -12,3 +12,14 @@ exports.getAllVCs = catchAsync(async (req, res, next) => {
         }
     });
 });
+
+exports.getVC = catchAsync(async (req, res, next) => {
+    const vc = await vcService.getVCById(req.params.id);
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            vc
+        }
+    });
+});

@@ -34,3 +34,12 @@ exports.updateVC = catchAsync(async (req, res, next) => {
         }
     });
 });
+
+exports.deleteVC = catchAsync(async (req, res, next) => {
+    await vcService.deleteVC(req.params.id);
+
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
+});

@@ -33,3 +33,11 @@ exports.updateVC = async (id, updateData) => {
 
     return vc;
 };
+
+exports.deleteVC = async (id) => {
+    const vc = await VC.findByIdAndDelete(id);
+    if (!vc) {
+        throw new AppError('No VC found with that ID', 404);
+    }
+    return vc;
+};

@@ -23,3 +23,14 @@ exports.getVC = catchAsync(async (req, res, next) => {
         }
     });
 });
+
+exports.updateVC = catchAsync(async (req, res, next) => {
+    const vc = await vcService.updateVC(req.params.id, req.body);
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            vc
+        }
+    });
+});

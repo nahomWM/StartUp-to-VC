@@ -6,3 +6,4 @@ const router = express.Router();
 
 router.get('/', vcController.getAllVCs);
 router.get('/:id', vcController.getVC);
+router.patch('/:id', authMiddleware.protect, vcController.updateVC);

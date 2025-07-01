@@ -4,6 +4,7 @@ const connectDB = require('./src/config/database');
 const morgan = require('morgan');
 const helmet = require('helmet');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();

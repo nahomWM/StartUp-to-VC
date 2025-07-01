@@ -2,6 +2,8 @@ const express = require('express');
 const config = require('./src/config/environment');
 const connectDB = require('./src/config/database');
 const morgan = require('morgan');
+const helmet = require('helmet');
+const cors = require('cors');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();

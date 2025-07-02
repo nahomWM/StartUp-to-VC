@@ -13,6 +13,19 @@ const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();
 
+// 1) GLOBAL MIDDLEWARES
+// Set security HTTP headers
+app.use(helmet());
+
+// Development logging
+if (config.env === 'development') {
+    app.use(morgan('dev'));
+}
+
+// Implement CORS
+app.use(cors());
+app.options('*', cors());
+
 // Connect to database
 connectDB();
 

@@ -60,6 +60,11 @@ app.get('/', (req, res) => {
     res.send('Star-Bust API is running...');
 });
 
+// 3) UNHANDLED ROUTES
+app.all('*', (req, res, next) => {
+    next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404));
+});
+
 app.use(errorHandler);
 
 const PORT = config.port || 5000;

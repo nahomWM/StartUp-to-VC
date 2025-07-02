@@ -10,6 +10,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const AppError = require('./src/utils/AppError');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();

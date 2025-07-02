@@ -9,11 +9,15 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
+const path = require('path');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();
 
 // 1) GLOBAL MIDDLEWARES
+// Serving static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 // Set security HTTP headers
 app.use(helmet());
 

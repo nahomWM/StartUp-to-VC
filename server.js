@@ -11,6 +11,7 @@ const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
 const AppError = require('./src/utils/AppError');
+const authRoutes = require('./src/routes/authRoutes');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();

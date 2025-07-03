@@ -57,6 +57,9 @@ app.use(hpp());
 // Connect to database
 connectDB();
 
+// 2) ROUTES
+app.use('/api/auth', authRoutes);
+
 app.get('/', (req, res) => {
     res.send('Star-Bust API is running...');
 });

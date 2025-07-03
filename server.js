@@ -13,6 +13,7 @@ const path = require('path');
 const AppError = require('./src/utils/AppError');
 const authRoutes = require('./src/routes/authRoutes');
 const startupRoutes = require('./src/routes/startupRoutes');
+const vcRoutes = require('./src/routes/vcRoutes');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const app = express();

@@ -62,6 +62,7 @@ connectDB();
 // 2) ROUTES
 app.use('/api/auth', authRoutes);
 app.use('/api/startup', startupRoutes);
+app.use('/api/vc', vcRoutes);
 
 app.get('/', (req, res) => {
     res.send('Star-Bust API is running...');

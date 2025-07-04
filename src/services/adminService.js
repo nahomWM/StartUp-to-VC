@@ -13,3 +13,16 @@ exports.getAdminById = async (id) => {
     }
     return admin;
 };
+
+exports.updateAdmin = async (id, updateData) => {
+    const admin = await Admin.findByIdAndUpdate(id, updateData, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!admin) {
+        throw new AppError('No admin found with that ID', 404);
+    }
+
+    return admin;
+};

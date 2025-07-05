@@ -26,3 +26,11 @@ exports.updateAdmin = async (id, updateData) => {
 
     return admin;
 };
+
+exports.deleteAdmin = async (id) => {
+    const admin = await Admin.findByIdAndDelete(id);
+    if (!admin) {
+        throw new AppError('No admin found with that ID', 404);
+    }
+    return admin;
+};

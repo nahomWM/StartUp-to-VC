@@ -12,3 +12,14 @@ exports.getAllAdmins = catchAsync(async (req, res, next) => {
         }
     });
 });
+
+exports.getAdmin = catchAsync(async (req, res, next) => {
+    const admin = await adminService.getAdminById(req.params.id);
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            admin
+        }
+    });
+});

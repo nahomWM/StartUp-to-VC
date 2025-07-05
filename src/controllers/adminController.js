@@ -34,3 +34,12 @@ exports.updateAdmin = catchAsync(async (req, res, next) => {
         }
     });
 });
+
+exports.deleteAdmin = catchAsync(async (req, res, next) => {
+    await adminService.deleteAdmin(req.params.id);
+
+    res.status(204).json({
+        status: 'success',
+        data: null
+    });
+});

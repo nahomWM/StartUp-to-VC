@@ -12,5 +12,6 @@ router.post('/login', authController.login);
 router.use(authMiddleware.protect, authMiddleware.restrictTo('admin'));
 
 router.get('/', adminController.getAllAdmins);
+router.get('/:id', adminController.getAdmin);
 
 module.exports = router;

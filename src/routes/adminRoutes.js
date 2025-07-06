@@ -13,5 +13,6 @@ router.use(authMiddleware.protect, authMiddleware.restrictTo('admin'));
 
 router.get('/', adminController.getAllAdmins);
 router.get('/:id', adminController.getAdmin);
+router.patch('/:id', adminController.updateAdmin);
 
 module.exports = router;

@@ -26,3 +26,13 @@ const fileFilter = (req, file, cb) => {
         cb(new AppError('Not a supported file type! Please upload images, videos, or PDFs.', 400), false);
     }
 };
+
+const upload = multer({
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: {
+        fileSize: 10 * 1024 * 1024 // 10MB
+    }
+});
+
+module.exports = upload;

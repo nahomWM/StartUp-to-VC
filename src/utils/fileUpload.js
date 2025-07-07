@@ -18,3 +18,11 @@ const storage = multer.diskStorage({
         cb(null, `user-${req.user ? req.user.id : 'anon'}-${Date.now()}.${ext}`);
     }
 });
+
+const fileFilter = (req, file, cb) => {
+    if (file.mimetype.startsWith('image') || file.mimetype.startsWith('video') || file.mimetype === 'application/pdf') {
+        cb(null, true);
+    } else {
+        cb(new AppError('Not a supported file type! Please upload images, videos, or PDFs.', 400), false);
+    }
+};

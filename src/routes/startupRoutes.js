@@ -8,3 +8,4 @@ const router = express.Router();
 router.get('/', startupController.getAllStartups);
 router.get('/:id', startupController.getStartup);
 router.patch('/:id', authMiddleware.protect, startupController.updateStartup);
+router.delete('/:id', authMiddleware.protect, startupController.deleteStartup);

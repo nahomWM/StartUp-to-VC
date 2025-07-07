@@ -6,3 +6,4 @@ const upload = require('../utils/fileUpload');
 const router = express.Router();
 
 router.get('/', startupController.getAllStartups);
+router.get('/:id', startupController.getStartup);

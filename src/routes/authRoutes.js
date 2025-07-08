@@ -6,3 +6,4 @@ const authMiddleware = require('../middleware/auth');
 const router = express.Router();
 
 router.post('/register/startup', authValidator.registerStartupValidator, authController.registerStartup);
+router.post('/register/vc', authValidator.registerVCValidator, authController.registerVC);

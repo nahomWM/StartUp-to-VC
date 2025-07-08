@@ -8,3 +8,4 @@ const router = express.Router();
 router.post('/register/startup', authValidator.registerStartupValidator, authController.registerStartup);
 router.post('/register/vc', authValidator.registerVCValidator, authController.registerVC);
 router.post('/login', authValidator.loginValidator, authController.login);
+router.get('/logout', authController.logout);

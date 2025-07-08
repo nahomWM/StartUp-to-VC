@@ -9,3 +9,4 @@ router.post('/register/startup', authValidator.registerStartupValidator, authCon
 router.post('/register/vc', authValidator.registerVCValidator, authController.registerVC);
 router.post('/login', authValidator.loginValidator, authController.login);
 router.get('/logout', authController.logout);
+router.get('/me', authMiddleware.protect, authController.getMe);

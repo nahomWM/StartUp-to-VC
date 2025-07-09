@@ -45,7 +45,15 @@ exports.getStartupsBySector = catchAsync(async (req, res, next) => {
 });
 
 exports.updateStartup = catchAsync(async (req, res, next) => {
-    const startup = await startupService.updateStartup(req.params.id, req.body);
+    const filteredBody = filterObj(req.body, 'name', 'description', 'industry', 'contactInfo', 'team', 'financials', 'metrics');
+
+    if (req.files) {
+        if (req.files.businessLicense) filteredBody['documents.businessLicense'] = req.files.businessLicense[0].filename;
+        if (req.files.nationalId) filteredBody['documents.nationalId'] = req.files.nationalId[0].filename;
+        if (req.files.businessProposal) filteredBody['documents.businessProposal'] = req.files.businessProposal[0].filename;
+    }
+
+    const startup = await startupService.updateStartup(req.params.id, filteredBody);
 
     res.status(200).json({
         status: 'success',

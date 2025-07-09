@@ -2,6 +2,14 @@ const authService = require('../services/authService');
 const catchAsync = require('../utils/catchAsync');
 const AppError = require('../utils/AppError');
 
+const filterObj = (obj, ...allowedFields) => {
+    const newObj = {};
+    Object.keys(obj).forEach(el => {
+        if (allowedFields.includes(el)) newObj[el] = obj[el];
+    });
+    return newObj;
+};
+
 exports.registerStartup = catchAsync(async (req, res, next) => {
     const { email, password, passwordConfirm, ...startupData } = req.body;
 

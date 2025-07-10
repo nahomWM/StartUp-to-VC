@@ -74,7 +74,12 @@ const vcSchema = new mongoose.Schema({
             enum: ['active', 'exited', 'failed'],
             default: 'active'
         }
-    }]
+    }],
+    active: {
+        type: Boolean,
+        default: true,
+        select: false
+    }
 }, {
     timestamps: true,
     toJSON: { virtuals: true },

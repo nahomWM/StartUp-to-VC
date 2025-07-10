@@ -49,3 +49,21 @@ exports.getMe = async (id) => {
     }
     return vc;
 };
+
+exports.updateMe = async (id, updateData) => {
+    const vc = await VC.findByIdAndUpdate(id, updateData, {
+        new: true,
+        runValidators: true
+    });
+    if (!vc) {
+        throw new AppError('No VC found with that ID', 404);
+    }
+    return vc;
+};
+
+exports.deleteMe = async (id) => {
+    const vc = await VC.findByIdAndUpdate(id, { active: false });
+    if (!vc) {
+        throw new AppError('No VC found with that ID', 404);
+    }
+};

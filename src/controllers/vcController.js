@@ -43,3 +43,14 @@ exports.deleteVC = catchAsync(async (req, res, next) => {
         data: null
     });
 });
+
+exports.getMe = catchAsync(async (req, res, next) => {
+    const vc = await vcService.getMe(req.user.id);
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            vc
+        }
+    });
+});

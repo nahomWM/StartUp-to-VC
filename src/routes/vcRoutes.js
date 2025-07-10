@@ -4,7 +4,15 @@ const authMiddleware = require('../middleware/auth');
 
 const router = express.Router();
 
+router.use(authMiddleware.protect);
+
+router.get('/me', vcController.getMe);
+router.patch('/updateMe', vcController.updateMe);
+router.delete('/deleteMe', vcController.deleteMe);
+
 router.get('/', vcController.getAllVCs);
 router.get('/:id', vcController.getVC);
-router.patch('/:id', authMiddleware.protect, vcController.updateVC);
-router.delete('/:id', authMiddleware.protect, vcController.deleteVC);
+router.patch('/:id', vcController.updateVC);
+router.delete('/:id', vcController.deleteVC);
+
+module.exports = router;

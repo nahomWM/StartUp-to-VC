@@ -42,3 +42,21 @@ exports.getMe = async (id) => {
     }
     return admin;
 };
+
+exports.updateMe = async (id, updateData) => {
+    const admin = await Admin.findByIdAndUpdate(id, updateData, {
+        new: true,
+        runValidators: true
+    });
+    if (!admin) {
+        throw new AppError('No admin found with that ID', 404);
+    }
+    return admin;
+};
+
+exports.deleteMe = async (id) => {
+    const admin = await Admin.findByIdAndUpdate(id, { active: false });
+    if (!admin) {
+        throw new AppError('No admin found with that ID', 404);
+    }
+};

@@ -23,7 +23,12 @@ const adminSchema = new mongoose.Schema({
             default: Date.now
         },
         details: mongoose.Schema.Types.Mixed
-    }]
+    }],
+    active: {
+        type: Boolean,
+        default: true,
+        select: false
+    }
 }, {
     timestamps: true
 });

@@ -43,3 +43,14 @@ exports.deleteAdmin = catchAsync(async (req, res, next) => {
         data: null
     });
 });
+
+exports.getMe = catchAsync(async (req, res, next) => {
+    const admin = await adminService.getMe(req.user.id);
+
+    res.status(200).json({
+        status: 'success',
+        data: {
+            admin
+        }
+    });
+});

@@ -11,6 +11,10 @@ router.post('/login', authController.login);
 
 router.use(authMiddleware.protect, authMiddleware.restrictTo('admin'));
 
+router.get('/me', adminController.getMe);
+router.patch('/updateMe', adminController.updateMe);
+router.delete('/deleteMe', adminController.deleteMe);
+
 router.get('/', adminController.getAllAdmins);
 router.get('/:id', adminController.getAdmin);
 router.patch('/:id', adminController.updateAdmin);

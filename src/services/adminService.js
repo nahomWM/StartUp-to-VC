@@ -34,3 +34,11 @@ exports.deleteAdmin = async (id) => {
     }
     return admin;
 };
+
+exports.getMe = async (id) => {
+    const admin = await Admin.findById(id);
+    if (!admin) {
+        throw new AppError('No admin found with that ID', 404);
+    }
+    return admin;
+};

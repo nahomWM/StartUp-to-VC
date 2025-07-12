@@ -38,17 +38,35 @@ const vcSchema = new mongoose.Schema({
         city: String
     },
     investmentCriteria: {
-        industries: [{
-            type: String,
-            enum: ['health', 'market', 'education', 'economic', 'finance', 'agriculture', 'humanResource', 'technology', 'other']
-        }],
-        stages: [{
-            type: String,
-            enum: ['pre-seed', 'seed', 'series-a', 'series-b', 'series-c', 'growth']
-        }],
+        industries: {
+            type: [String],
+            enum: {
+                values: ['health', 'market', 'education', 'economic', 'finance', 'agriculture', 'humanResource', 'technology', 'other'],
+                message: 'Invalid industry'
+            }
+        },
+        stages: {
+            type: [String],
+            enum: {
+                values: ['pre-seed', 'seed', 'series-a', 'series-b', 'series-c', 'growth'],
+                message: 'Invalid funding stage'
+            }
+        },
         ticketSize: {
-            min: { type: Number, default: 0 },
-            max: { type: Number }
+            min: {
+                type: Number,
+                default: 0,
+                min: [0, 'Minimum ticket size cannot be negative']
+            },
+            max: {
+                type: Number,
+                validate: {
+                    validator: function (val) {
+                        return val >= this.investmentCriteria.min;
+                    },
+                    message: 'Maximum ticket size must be greater than or equal to minimum'
+                }
+            }
         }
     },
     verification: {

@@ -1,6 +1,14 @@
 const adminService = require('../services/adminService');
 const catchAsync = require('../utils/catchAsync');
 
+const filterObj = (obj, ...allowedFields) => {
+    const newObj = {};
+    Object.keys(obj).forEach(el => {
+        if (allowedFields.includes(el)) newObj[el] = obj[el];
+    });
+    return newObj;
+};
+
 exports.getAllAdmins = catchAsync(async (req, res, next) => {
     const admins = await adminService.getAllAdmins();
 
@@ -56,7 +64,11 @@ exports.getMe = catchAsync(async (req, res, next) => {
 });
 
 exports.updateMe = catchAsync(async (req, res, next) => {
-    const admin = await adminService.updateMe(req.user.id, req.body);
+    // 1) Filter out unwanted fields
+    const filteredBody = filterObj(req.body, 'name');
+
+    // 2) Update Admin document
+    const admin = await adminService.updateMe(req.user.id, filteredBody);
 
     res.status(200).json({
         status: 'success',

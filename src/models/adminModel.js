@@ -7,7 +7,10 @@ const adminSchema = new mongoose.Schema({
     },
     permissions: [{
         type: String,
-        enum: ['manage_users', 'manage_startups', 'manage_vcs', 'manage_admins', 'view_analytics', 'system_settings']
+        enum: {
+            values: ['manage_users', 'manage_startups', 'manage_vcs', 'manage_admins', 'view_analytics', 'system_settings'],
+            message: 'Invalid permission: {VALUE}'
+        }
     }],
     level: {
         type: String,

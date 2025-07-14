@@ -30,7 +30,7 @@ app.use(helmet());
 
 // Development logging
 if (config.env === 'development') {
-    app.use(morgan('dev'));
+    app.use(morgan('dev', { stream: logger.stream }));
 }
 
 // Implement CORS

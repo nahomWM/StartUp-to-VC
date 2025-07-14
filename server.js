@@ -17,6 +17,8 @@ const vcRoutes = require('./src/routes/vcRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
 const errorHandler = require('./src/middleware/errorHandler');
 
+const logger = require('./src/utils/logger');
+
 const app = express();
 
 // 1) GLOBAL MIDDLEWARES
@@ -79,5 +81,5 @@ app.use(errorHandler);
 
 const PORT = config.port || 5000;
 app.listen(PORT, () => {
-    console.log(`Server running in ${config.env} mode on port ${PORT}`);
+    logger.info(`Server running in ${config.env} mode on port ${PORT}`);
 });

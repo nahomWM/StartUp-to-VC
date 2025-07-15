@@ -9,6 +9,13 @@ const filterObj = (obj, ...allowedFields) => {
     return newObj;
 };
 
+exports.aliasTopStartups = (req, res, next) => {
+    req.query.limit = '5';
+    req.query.sort = '-ratingsAverage,price';
+    req.query.fields = 'name,price,ratingsAverage,summary,difficulty';
+    next();
+};
+
 exports.getAllStartups = catchAsync(async (req, res, next) => {
     const startups = await startupService.getAllStartups(req.query);
 

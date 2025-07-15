@@ -9,6 +9,13 @@ const filterObj = (obj, ...allowedFields) => {
     return newObj;
 };
 
+exports.aliasTopVCs = (req, res, next) => {
+    req.query.limit = '5';
+    req.query.sort = '-verification.isVerified,createdAt';
+    req.query.fields = 'profile.firmName,profile.firstName,profile.lastName,location.country';
+    next();
+};
+
 exports.getAllVCs = catchAsync(async (req, res, next) => {
     const vcs = await vcService.getAllVCs(req.query);
 

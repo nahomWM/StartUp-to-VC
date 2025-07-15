@@ -4,6 +4,7 @@ const APIFeatures = require('../utils/apiFeatures');
 
 exports.getAllVCs = async (queryString) => {
     const features = new APIFeatures(VC.find(), queryString)
+        .search(['profile.firmName', 'profile.firstName', 'profile.lastName', 'location.country'])
         .filter()
         .sort()
         .limitFields()

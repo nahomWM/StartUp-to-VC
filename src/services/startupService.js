@@ -4,6 +4,7 @@ const APIFeatures = require('../utils/apiFeatures');
 
 exports.getAllStartups = async (queryString) => {
     const features = new APIFeatures(Startup.find(), queryString)
+        .search(['name', 'industry', 'description'])
         .filter()
         .sort()
         .limitFields()

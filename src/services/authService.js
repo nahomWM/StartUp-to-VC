@@ -82,3 +82,50 @@ exports.login = async (email, password, role) => {
 };
 
 exports.createSendToken = createSendToken;
+
+exports.forgotPassword = async (email) => {
+    const user = await User.findOne({ email });
+    if (!user) {
+        throw new AppError('There is no user with email address.', 404);
+    }
+
+    const resetToken = user.createPasswordResetToken();
+    await user.save({ validateBeforeSave: false });
+
+    return resetToken;
+};
+
+exports.resetPassword = async (token, password, passwordConfirm) => {
+    const hashedToken = crypto
+        .createHash('sha256')
+        .update(token)
+        .digest('hex');
+
+    const user = await User.findOne({
+        passwordResetToken: hashedToken,
+        passwordResetExpires: { $gt: Date.now() }
+    });
+
+    if (!user) {
+        throw new AppError('Token is invalid or has expired', 400);
+    }
+    user.password = password;
+    user.passwordConfirm = passwordConfirm;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    await user.save();
+
+    return user;
+};
+
+exports.updatePassword = async (user, currentPassword, newPassword, newPasswordConfirm) => {
+    if (!(await user.correctPassword(currentPassword, user.password))) {
+        throw new AppError('Your current password is wrong', 401);
+    }
+
+    user.password = newPassword;
+    user.passwordConfirm = newPasswordConfirm;
+    await user.save();
+
+    return user;
+};

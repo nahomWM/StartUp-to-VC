@@ -9,4 +9,13 @@ router.post('/register/startup', authValidator.registerStartupValidator, authCon
 router.post('/register/vc', authValidator.registerVCValidator, authController.registerVC);
 router.post('/login', authValidator.loginValidator, authController.login);
 router.get('/logout', authController.logout);
-router.get('/me', authMiddleware.protect, authController.getMe);
+
+router.post('/forgotPassword', authController.forgotPassword);
+router.patch('/resetPassword/:token', authController.resetPassword);
+
+router.use(authMiddleware.protect);
+
+router.patch('/updateMyPassword', authController.updatePassword);
+router.patch('/updateMe', authController.updateMe);
+router.delete('/deleteMe', authController.deleteMe);
+router.get('/me', authController.getMe);

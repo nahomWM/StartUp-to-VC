@@ -53,6 +53,38 @@ exports.logout = (req, res) => {
     res.status(200).json({ status: 'success' });
 };
 
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+    const resetToken = await authService.forgotPassword(req.body.email);
+
+    // In a real app, we would send an email here
+    res.status(200).json({
+        status: 'success',
+        message: 'Token sent to email!',
+        resetToken // Sending token in response for development/testing
+    });
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {
+    const user = await authService.resetPassword(
+        req.params.token,
+        req.body.password,
+        req.body.passwordConfirm
+    );
+
+    authService.createSendToken(user, 200, res);
+});
+
+exports.updatePassword = catchAsync(async (req, res, next) => {
+    const user = await authService.updatePassword(
+        req.user,
+        req.body.passwordCurrent,
+        req.body.password,
+        req.body.passwordConfirm
+    );
+
+    authService.createSendToken(user, 200, res);
+});
+
 exports.getMe = catchAsync(async (req, res, next) => {
     // Populate the entity details based on role
     let user = req.user;

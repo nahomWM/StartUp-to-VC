@@ -129,3 +129,28 @@ exports.updatePassword = async (user, currentPassword, newPassword, newPasswordC
 
     return user;
 };
+
+exports.updateMe = async (user, updateData) => {
+    // 1) Filter out unwanted fields
+    const filteredBody = filterObj(updateData, 'email'); // Only allow email update for now
+
+    // 2) Update user document
+    const updatedUser = await User.findByIdAndUpdate(user.id, filteredBody, {
+        new: true,
+        runValidators: true
+    });
+
+    return updatedUser;
+};
+
+exports.deleteMe = async (user) => {
+    await User.findByIdAndUpdate(user.id, { isActive: false });
+};
+
+const filterObj = (obj, ...allowedFields) => {
+    const newObj = {};
+    Object.keys(obj).forEach(el => {
+        if (allowedFields.includes(el)) newObj[el] = obj[el];
+    });
+    return newObj;
+};

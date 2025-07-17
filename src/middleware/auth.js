@@ -123,3 +123,10 @@ exports.isLoggedIn = async (req, res, next) => {
     }
     next();
 };
+
+exports.checkVerified = (req, res, next) => {
+    if (!req.user.isVerified) {
+        return next(new AppError('Please verify your account to access this resource.', 403));
+    }
+    next();
+};

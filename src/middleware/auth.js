@@ -130,3 +130,17 @@ exports.checkVerified = (req, res, next) => {
     }
     next();
 };
+
+exports.checkStartupAccess = (req, res, next) => {
+    if (req.user.role !== 'startup' && req.user.role !== 'admin') {
+        return next(new AppError('Only startups can access this resource.', 403));
+    }
+    next();
+};
+
+exports.checkVCAccess = (req, res, next) => {
+    if (req.user.role !== 'vc' && req.user.role !== 'admin') {
+        return next(new AppError('Only VCs can access this resource.', 403));
+    }
+    next();
+};

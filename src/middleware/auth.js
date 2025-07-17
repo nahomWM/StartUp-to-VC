@@ -49,6 +49,9 @@ exports.protect = catchAsync(async (req, res, next) => {
         return next(new AppError('Your account has been deactivated.', 401));
     }
 
+    // 6) Check if user is verified (optional, can be used for specific routes)
+    req.isVerified = currentUser.isVerified;
+
     // GRANT ACCESS TO PROTECTED ROUTE
     req.user = currentUser;
     next();

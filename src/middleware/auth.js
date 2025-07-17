@@ -44,6 +44,11 @@ exports.protect = catchAsync(async (req, res, next) => {
         );
     }
 
+    // 5) Check if user is active
+    if (!currentUser.isActive) {
+        return next(new AppError('Your account has been deactivated.', 401));
+    }
+
     // GRANT ACCESS TO PROTECTED ROUTE
     req.user = currentUser;
     next();

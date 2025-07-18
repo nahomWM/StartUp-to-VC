@@ -78,3 +78,24 @@ exports.deleteStartup = catchAsync(async (req, res, next) => {
         data: null
     });
 });
+
+exports.getStartupStats = catchAsync(async (req, res, next) => {
+    const stats = await startupService.getStartupStats();
+    res.status(200).json({
+        status: 'success',
+        data: {
+            stats
+        }
+    });
+});
+
+exports.getMonthlyPlan = catchAsync(async (req, res, next) => {
+    const year = req.params.year * 1;
+    const plan = await startupService.getMonthlyPlan(year);
+    res.status(200).json({
+        status: 'success',
+        data: {
+            plan
+        }
+    });
+});

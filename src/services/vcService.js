@@ -68,3 +68,16 @@ exports.deleteMe = async (id) => {
         throw new AppError('No VC found with that ID', 404);
     }
 };
+
+exports.getVCStats = async () => {
+    const stats = await VC.aggregate([
+        {
+            $group: {
+                _id: '$type',
+                numVCs: { $sum: 1 },
+                avgVerified: { $avg: { $cond: ['$verification.isVerified', 1, 0] } }
+            }
+        }
+    ]);
+    return stats;
+};

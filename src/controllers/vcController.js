@@ -93,3 +93,13 @@ exports.deleteMe = catchAsync(async (req, res, next) => {
         data: null
     });
 });
+
+exports.getVCStats = catchAsync(async (req, res, next) => {
+    const stats = await vcService.getVCStats();
+    res.status(200).json({
+        status: 'success',
+        data: {
+            stats
+        }
+    });
+});

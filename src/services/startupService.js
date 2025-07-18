@@ -49,3 +49,52 @@ exports.deleteStartup = async (id) => {
 
     return startup;
 };
+
+exports.getStartupStats = async () => {
+    const stats = await Startup.aggregate([
+        {
+            $group: {
+                _id: '$industry',
+                numStartups: { $sum: 1 },
+                avgRating: { $avg: '$ratingsAverage' },
+                avgPrice: { $avg: '$price' },
+                minPrice: { $min: '$price' },
+                maxPrice: { $max: '$price' }
+            }
+        },
+        {
+            $sort: { avgRating: -1 }
+        }
+    ]);
+    return stats;
+};
+
+exports.getMonthlyPlan = async (year) => {
+    const plan = await Startup.aggregate([
+        {
+            $match: {
+                createdAt: {
+                    $gte: new Date(`${year}-01-01`),
+                    $lte: new Date(`${year}-12-31`)
+                }
+            }
+        },
+        {
+            $group: {
+                _id: { $month: '$createdAt' },
+                numStartupStarts: { $sum: 1 },
+                startups: { $push: '$name' }
+            }
+        },
+        {
+            $addFields: { month: '$_id' }
+        },
+        {
+            $project: { _id: 0 }
+        },
+        {
+            $sort: { numStartupStarts: -1 }
+        }
+    ]);
+    return plan;
+};

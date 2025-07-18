@@ -5,6 +5,10 @@ const upload = require('../utils/fileUpload');
 
 const router = express.Router();
 
+router.get('/top-5-startups', startupController.aliasTopStartups, startupController.getAllStartups);
+router.get('/startup-stats', startupController.getStartupStats);
+router.get('/monthly-plan/:year', startupController.getMonthlyPlan);
+
 router.get('/', startupController.getAllStartups);
 router.get('/:id', startupController.getStartup);
 router.patch(

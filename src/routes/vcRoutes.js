@@ -8,6 +8,9 @@ const router = express.Router();
 
 router.use(authMiddleware.protect);
 
+router.get('/top-5-vcs', vcController.aliasTopVCs, vcController.getAllVCs);
+router.get('/vc-stats', vcController.getVCStats);
+
 router.get('/me', vcController.getMe);
 router.patch('/updateMe', vcValidator.updateVCValidator, vcController.updateMe);
 router.delete('/deleteMe', vcController.deleteMe);

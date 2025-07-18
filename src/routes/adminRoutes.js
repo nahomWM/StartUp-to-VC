@@ -1,9 +1,7 @@
 const express = require('express');
 const authController = require('../controllers/authController');
-const adminController = require('../controllers/adminController');
-const authMiddleware = require('../middleware/auth');
-
-const adminValidator = require('../validators/adminValidator');
+const startupController = require('../controllers/startupController');
+const vcController = require('../controllers/vcController');
 
 const router = express.Router();
 
@@ -12,6 +10,10 @@ router.post('/register', adminValidator.registerAdminValidator, authController.r
 router.post('/login', authController.login);
 
 router.use(authMiddleware.protect, authMiddleware.restrictTo('admin'));
+
+router.get('/startup-stats', startupController.getStartupStats);
+router.get('/vc-stats', vcController.getVCStats);
+router.get('/monthly-plan/:year', startupController.getMonthlyPlan);
 
 router.get('/me', adminController.getMe);
 router.patch('/updateMe', adminValidator.updateAdminValidator, adminController.updateMe);

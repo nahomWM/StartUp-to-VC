@@ -30,7 +30,21 @@ app.enable('trust proxy');
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Set security HTTP headers
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'"],
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            imgSrc: ["'self'", "data:", "https://*.cloudinary.com"],
+            connectSrc: ["'self'"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            objectSrc: ["'none'"],
+            mediaSrc: ["'self'"],
+            frameSrc: ["'none'"]
+        }
+    }
+}));
 
 // Development logging
 if (config.env === 'development') {

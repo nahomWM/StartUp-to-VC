@@ -38,7 +38,10 @@ if (config.env === 'development') {
 }
 
 // Implement CORS
-app.use(cors());
+app.use(cors({
+    origin: true,
+    credentials: true
+}));
 app.options('*', cors());
 
 // Limit requests from same API

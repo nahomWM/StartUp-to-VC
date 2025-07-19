@@ -9,6 +9,7 @@ const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const rateLimit = require('express-rate-limit');
+const compression = require('compression');
 const path = require('path');
 const AppError = require('./src/utils/AppError');
 const authRoutes = require('./src/routes/authRoutes');
@@ -58,6 +59,8 @@ app.use(xss());
 
 // Prevent parameter pollution
 app.use(hpp());
+
+app.use(compression());
 
 // Connect to database
 connectDB();

@@ -16,11 +16,14 @@ const authRoutes = require('./src/routes/authRoutes');
 const startupRoutes = require('./src/routes/startupRoutes');
 const vcRoutes = require('./src/routes/vcRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
+const userRoutes = require('./src/routes/userRoutes');
 const errorHandler = require('./src/middleware/errorHandler');
 
 const logger = require('./src/utils/logger');
 
 const app = express();
+
+app.enable('trust proxy');
 
 // 1) GLOBAL MIDDLEWARES
 // Serving static files
@@ -70,6 +73,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/startup', startupRoutes);
 app.use('/api/vc', vcRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/users', userRoutes);
 
 app.get('/', (req, res) => {
     res.send('Star-Bust API is running...');

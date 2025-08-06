@@ -20,3 +20,16 @@ exports.getVCById = async (id) => {
     }
     return vc;
 };
+
+exports.updateVC = async (id, updateData) => {
+    const vc = await VC.findByIdAndUpdate(id, updateData, {
+        new: true,
+        runValidators: true
+    });
+
+    if (!vc) {
+        throw new AppError('No VC found with that ID', 404);
+    }
+
+    return vc;
+};

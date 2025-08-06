@@ -12,3 +12,11 @@ exports.getAllVCs = async (queryString) => {
     const vcs = await features.query;
     return vcs;
 };
+
+exports.getVCById = async (id) => {
+    const vc = await VC.findById(id);
+    if (!vc) {
+        throw new AppError('No VC found with that ID', 404);
+    }
+    return vc;
+};
